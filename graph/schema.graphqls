@@ -1,0 +1,52 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+# Scalars
+scalar Time
+
+type User {
+  id:           ID!
+  createdAt:    Time
+  updatedAt:    Time
+  name:         String!
+  lastname:     String!
+  email:        String!
+  activated:    Boolean
+  version:      Int
+}
+
+input NewUserInput {
+  name: String!
+  lastName: String!
+  email: String!
+  password: String!
+}
+
+input AuthTokenInput {
+  email: String!
+  password: String!
+}
+
+type AuthToken {
+  key: String!
+  expire: Time!
+}
+
+type AuthTokenResponse {
+  authentication_token: AuthToken!
+}
+
+type LogoutResponse {
+  success: Boolean!
+}
+
+type Query {
+  users: [User]!
+}
+
+type Mutation {
+  createUser(input: NewUserInput!): User!
+  createAuthToken(input: AuthTokenInput!): AuthTokenResponse!
+  logOut(userId: ID!): LogoutResponse!
+}
